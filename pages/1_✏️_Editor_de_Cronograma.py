@@ -243,6 +243,7 @@ st.subheader("💾 Guardar y aplicar cambios")
 nombre_archivo = st.text_input("Nombre del archivo Excel:", value="datos_proyecto.xlsx")
 
 # Botón para generar y descargar
+
 if st.button("Guardar"):
     campos_a_guardar = ["Etapa", "Tarea", "Tipo", "Inicio", "Duración (días)", "Predecesora", "Bloquear inicio", "Avance (%)"]
     df_a_guardar = processed_df[campos_a_guardar]
@@ -260,6 +261,7 @@ if st.button("Guardar"):
         file_name=nombre_archivo,
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
+
 
     # Guardar en sesión
     st.session_state['df'] = df
