@@ -21,7 +21,6 @@ etapas_filtradas = st.multiselect(
 )
 
 
-st.session_state['etapas_filtradas'] = etapas_filtradas
 
 
 # Filtrar el DataFrame según las etapas seleccionadas
