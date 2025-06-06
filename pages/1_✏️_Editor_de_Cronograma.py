@@ -235,14 +235,16 @@ processed_df["Orden"] = processed_df.index  # Crear un índice para mantener el 
 
 # 9 Botón para guardar y aplicar cambios
 
+
 # Botón para guardar y aplicar cambios
-if st.button("Guardar y aplicar cambios"):
-    # Seleccionar solo los campos que están en la tabla interactiva
+st.subheader("💾 Guardar y aplicar cambios")
+
+# Entrada para el nombre del archivo
+nombre_archivo = st.text_input("Nombre del archivo Excel:", value="datos_proyecto.xlsx")
+
+if st.button("Guardar"):
     campos_a_guardar = ["Etapa", "Tarea", "Tipo", "Inicio", "Duración (días)", "Predecesora", "Bloquear inicio", "Avance (%)"]
     df_a_guardar = processed_df[campos_a_guardar]
-
-    # Entrada para el nombre del archivo
-    nombre_archivo = st.text_input("Nombre del archivo Excel:", value="datos_proyecto.xlsx")
 
     # Crear archivo Excel en memoria
     buffer = BytesIO()
