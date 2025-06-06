@@ -233,18 +233,30 @@ processed_df["Orden"] = processed_df.index  # Crear un índice para mantener el 
 
 # 9 Botón para guardar y aplicar cambios
 
+# Botón para guardar y aplicar cambios
 if st.button("Guardar y aplicar cambios"):
-    # Seleccionar solo los campos que están en la tabla interactiva
-    campos_a_guardar = ["Etapa", "Tarea", "Tipo", "Inicio", "Duración (días)", "Predecesora", "Bloquear inicio", "Avance (%)"]
-    processed_df[campos_a_guardar].to_excel("C:/Users/DGCYSIPARIOSPU/mi_cronograma/datos_proyecto.xlsx", index=False)
-    st.success("Datos guardados exitosamente.")
+    # Seleccionar solo los campos que están en la tabla interactiva
+    campos_a_guardar = ["Etapa", "Tarea", "Tipo", "Inicio", "Duración (días)", "Predecesora", "Bloquear inicio", "Avance (%)"]
+    df_a_guardar = processed_df[campos_a_guardar]
 
+    # Entrada para el nombre del archivo
+    nombre_archivo = st.text_input("Nombre del archivo Excel:", value="datos_proyecto.xlsx")
 
-    # Guardar el DataFrame original en la sesión
-st.session_state['df'] = df
+    # Crear archivo Excel en memoria
+    buffer = BytesIO()
+    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+        df_a_guardar.to_excel(writer, index=False)
+    buffer.seek(0)
 
+    # Botón de descarga
+    st.download_button(
+        label="📥 Descargar archivo Excel",
+        data=buffer,
+        file_name=nombre_archivo,
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
 
-    # Guardar el DataFrame editado en la sesión
-st.session_state['processed_df'] = processed_df
-
-st.success("Datos editados guardados en la sesión.")
+    # Guardar en sesión
+    st.session_state['df'] = df
+    st.session_state['processed_df'] = processed_df
+    st.success("Datos editados guardados en la sesión.")
