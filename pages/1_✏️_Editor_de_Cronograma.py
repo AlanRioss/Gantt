@@ -245,25 +245,25 @@ nombre_archivo = st.text_input("Nombre del archivo Excel:", value="datos_proyect
 # Botón para generar y descargar
 
 if st.button("Guardar"):
-    campos_a_guardar = ["Etapa", "Tarea", "Tipo", "Inicio", "Duración (días)", "Predecesora", "Bloquear inicio", "Avance (%)"]
-    df_a_guardar = processed_df[campos_a_guardar]
+    campos_a_guardar = ["Etapa", "Tarea", "Tipo", "Inicio", "Duración (días)", "Predecesora", "Bloquear inicio", "Avance (%)"]
+    df_a_guardar = processed_df[campos_a_guardar]
 
-    # Crear archivo Excel en memoria
-    buffer = BytesIO()
-    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-        df_a_guardar.to_excel(writer, index=False)
-    buffer.seek(0)
+# Crear archivo Excel en memoria
+    buffer = BytesIO()
+    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+         df_a_guardar.to_excel(writer, index=False)
+    buffer.seek(0)
 
-    # Mostrar botón de descarga
-    st.download_button(
-        label="📥 Descargar archivo Excel",
-        data=buffer,
-        file_name=nombre_archivo,
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+    # Mostrar botón de descarga
+    st.download_button(
+        label="📥 Descargar archivo Excel",
+        data=buffer,
+        file_name=nombre_archivo,
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
 
-    # Guardar en sesión
-    st.session_state['df'] = df
-    st.session_state['processed_df'] = processed_df
-    st.success("Datos editados guardados en la sesión.")
+# Guardar en sesión
+    st.session_state['df'] = df
+    st.session_state['processed_df'] = processed_df
+    st.success("Datos editados guardados en la sesión.")
