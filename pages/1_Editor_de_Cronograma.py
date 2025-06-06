@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 st.title("✏️ Editor de Cronograma")
-etapas_filtradas =st.session_state['etapas_filtradas']
+
 
 
 uploaded_file = st.file_uploader("Selecciona un archivo Excel", type="xlsx")
